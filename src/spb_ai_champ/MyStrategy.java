@@ -26,7 +26,7 @@ public class MyStrategy {
                 // если на этой планете нет здания, строю
                 if( p.getBuilding() == null){
                     buildingActionList.add(
-                        new BuildingAction(p.getId(), harvestResourceToBuildingType(p.getHarvestableResource()))
+                            new BuildingAction(p.getId(), harvestResourceToBuildingType(p.getHarvestableResource()))
                     );
                 }
             }
@@ -40,20 +40,18 @@ public class MyStrategy {
                 if( rawResourcePlanetWithoutBuilding != null){
                     // нашел, отправляю туда робота
                     moveActionList.add(
-                        new MoveAction(
-                                p.getId(),
-                                rawResourcePlanetWithoutBuilding.getId(),
-                                LEAVE_ROBOTS,
-                                Resource.STONE
-                        )
+                            new MoveAction(
+                                    p.getId(),
+                                    rawResourcePlanetWithoutBuilding.getId(),
+                                    LEAVE_ROBOTS,
+                                    Resource.STONE
+                            )
                     );
                 }
             }
         }
 
-        return new Action(
-                moveActionsListToArray(moveActionList),
-                buildingActionsListToArray(buildingActionList));
+        return new Action(moveActionsListToArray(moveActionList), buildingActionsListToArray(buildingActionList), null);
     }
 
     private MoveAction[] moveActionsListToArray(List<MoveAction> moveActionList)
@@ -158,7 +156,7 @@ public class MyStrategy {
         for(Planet p: rawResourcePlanets){
             if( p != myPlanet && p.getBuilding() == null){
                 double dist = (myPlanet.getX() - p.getX()) * (myPlanet.getX() - p.getX()) +
-                              (myPlanet.getY() - p.getY()) * (myPlanet.getY() - p.getY());
+                        (myPlanet.getY() - p.getY()) * (myPlanet.getY() - p.getY());
 
                 if( dist < minDist){
                     minDist = dist;
